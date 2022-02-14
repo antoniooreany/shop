@@ -1,5 +1,6 @@
 package com.gorshkov.shop.servlet;
 
+import com.gorshkov.shop.main.Connector;
 import com.gorshkov.shop.main.Product;
 import com.gorshkov.shop.templater.PageGenerator;
 
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +19,12 @@ public class ProductsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Product> productList = findAll(); //todo to DB
+        List<Product> productList = null; //todo to DB
+        try {
+            productList = findAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         response.setStatus(HttpServletResponse.SC_OK);
 
@@ -28,10 +35,22 @@ public class ProductsServlet extends HttpServlet {
         response.getWriter().println(page);
     }
 
-    private List<Product> findAll() {
+    private List<Product> findAll() throws SQLException {
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product(1, "pie", 100));
-        productList.add(new Product(2, "cake", 200)); // todo this is a mock. connect to the DB.
+//        productList.add(new Product(1, "pie", 100));
+//        productList.add(new Product(2, "cake", 200)); // todo this is a mock. connect to the DB.
+
+        Statement statement = Connector.getStatement();
+        String query = "SELECT * FROM products;";
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt(1);
+            String name = resultSet.getString(2);
+            int price = resultSet.getInt(3);
+            productList.add(new Product(id, name, price));
+        }
+
         return productList;
     }
 }
