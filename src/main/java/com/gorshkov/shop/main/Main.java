@@ -9,11 +9,11 @@ public class Main {
     public static void main(String[] args) throws Exception {
         ProductsServlet productsServlet = new ProductsServlet();
 
-        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.addServlet(new ServletHolder(productsServlet), "/products");
+        ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        contextHandler.addServlet(new ServletHolder(productsServlet), "/products");
 
         Server server = new Server(3000);
-        server.setHandler(context);
+        server.setHandler(contextHandler);
 
         server.start();
     }
