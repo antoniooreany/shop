@@ -37,11 +37,9 @@ public class ProductsServlet extends HttpServlet {
 
     private List<Product> findAll() throws SQLException {
         List<Product> productList = new ArrayList<>();
-//        productList.add(new Product(1, "pie", 100));
-//        productList.add(new Product(2, "cake", 200)); // todo this is a mock. connect to the DB.
 
         Statement statement = Connector.getStatement();
-        String query = "SELECT * FROM products;";
+        String query = "SELECT * FROM db.products;";
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
