@@ -19,12 +19,12 @@
     <tbody>
     <tr>
         <#list products as product>
-        <td><input style="border: none;" type="text" onclick="" name="name" value="${product.id}"/></td>
+        <td><input style="border: none;" type="text" onclick="" name="name" value="${product.id}"/></td> <!--todo why like this?-->
         <td><input style="border: none;" type="text" onclick="" name="name" value="${product.name}"/></td>
         <td><input style="border: none;" type="text" onclick="" name="name" value="${product.price}"/></td>
     </tr>
     </tbody>
-</#list>
+</#list> <!--todo why an error accure?-->
 </table>
 
 <form>
