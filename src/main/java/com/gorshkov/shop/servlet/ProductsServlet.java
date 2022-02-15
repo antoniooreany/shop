@@ -2,6 +2,7 @@ package com.gorshkov.shop.servlet;
 
 import com.gorshkov.shop.main.Connector;
 import com.gorshkov.shop.main.Product;
+import com.gorshkov.shop.main.ProductService;
 import com.gorshkov.shop.templater.PageGenerator;
 
 import javax.servlet.ServletException;
@@ -16,6 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 public class ProductsServlet extends HttpServlet {
+
+    private final ProductService productService;
+
+    public ProductsServlet(ProductService productService) {
+        this.productService = productService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

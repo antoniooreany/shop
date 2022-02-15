@@ -7,7 +7,9 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        ProductsServlet productsServlet = new ProductsServlet();
+        ProductDao productDao = new ProductDao();
+        ProductService productService = new ProductService(productDao);
+        ProductsServlet productsServlet = new ProductsServlet(productService);
 
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         contextHandler.addServlet(new ServletHolder(productsServlet), "/products");
