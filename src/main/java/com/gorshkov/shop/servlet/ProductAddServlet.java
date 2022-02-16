@@ -1,5 +1,7 @@
 package com.gorshkov.shop.servlet;
 
+import com.gorshkov.shop.main.Connector;
+import com.gorshkov.shop.main.Product;
 import com.gorshkov.shop.main.ProductAddService;
 import com.gorshkov.shop.templater.PageGenerator;
 
@@ -8,7 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ProductAddServlet extends HttpServlet {
@@ -17,6 +24,21 @@ public class ProductAddServlet extends HttpServlet {
 
     public ProductAddServlet(ProductAddService productAddService) {
         this.productAddService = productAddService;
+    }
+
+    @Override
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response) throws ServletException, IOException {
+
+        Map<String, Object> pageVariables = createPageVariablesMap(request);
+        pageVariables.put("message", "");
+
+        response.getWriter().println(PageGenerator.instance().getPage("productAdd.html", pageVariables));
+
+        response.setContentType("text/html;charset=utf-8");
+        response.setStatus(HttpServletResponse.SC_OK);
+
+//        doPost(request, response);
     }
 
     @Override
@@ -46,7 +68,35 @@ public class ProductAddServlet extends HttpServlet {
         response.getWriter()
                 .println(page);
 
-//        System.out.println(request.getParameterNames());
+        String idValue = (String) pageVariables.get("id");
+        String nameValue = (String) pageVariables.get("name");
+        String priceValue = (String) pageVariables.get("price");
+
+        ArrayList<String> fields = new ArrayList<>();
+        fields.add(idValue);
+        fields.add(nameValue);
+        fields.add(priceValue);
+
+        String insertQuery = new QueryCreator().createInsertQuery(fields);
+        System.out.println(insertQuery);
+
+    }
+
+    private List<Product> findAll() throws SQLException {
+        List<Product> productList = new ArrayList<>();
+
+        try (Statement statement = Connector.getStatement();) {
+            String query = "SELECT * FROM db.products;";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                int price = resultSet.getInt(3);
+                productList.add(new Product(id, name, price));
+            }
+        }
+        return productList;
     }
 
     private static Map<String, Object> createPageVariablesMap(HttpServletRequest request) {
