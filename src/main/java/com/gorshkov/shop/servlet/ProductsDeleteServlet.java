@@ -1,7 +1,7 @@
 package com.gorshkov.shop.servlet;
 
+import com.gorshkov.shop.templater.PageVarialbesCreator;
 import com.gorshkov.shop.service.ProductsDeleteService;
-import com.gorshkov.shop.service.ProductsUpdateService;
 import com.gorshkov.shop.templater.PageGenerator;
 
 import javax.servlet.http.HttpServlet;

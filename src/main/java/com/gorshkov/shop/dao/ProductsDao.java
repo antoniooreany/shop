@@ -1,6 +1,6 @@
 package com.gorshkov.shop.dao;
 
-import com.gorshkov.shop.model.Connector;
+import com.gorshkov.shop.templater.Connector;
 import com.gorshkov.shop.model.Product;
 
 import java.sql.ResultSet;

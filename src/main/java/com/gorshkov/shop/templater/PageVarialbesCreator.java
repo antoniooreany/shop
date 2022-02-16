@@ -1,4 +1,4 @@
-package com.gorshkov.shop.servlet;
+package com.gorshkov.shop.templater;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;

@@ -1,6 +1,5 @@
 package com.gorshkov.shop.servlet;
 
-import com.gorshkov.shop.model.Connector;
 import com.gorshkov.shop.model.Product;
 import com.gorshkov.shop.service.ProductsService;
 import com.gorshkov.shop.templater.PageGenerator;
@@ -10,10 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

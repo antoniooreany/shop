@@ -1,5 +1,6 @@
 package com.gorshkov.shop.servlet;
 
+import com.gorshkov.shop.templater.PageVarialbesCreator;
 import com.gorshkov.shop.service.ProductsAddService;
 import com.gorshkov.shop.templater.PageGenerator;
 

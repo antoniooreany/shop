@@ -1,6 +1,6 @@
 package com.gorshkov.shop.dao;
 
-import com.gorshkov.shop.model.Connector;
+import com.gorshkov.shop.templater.Connector;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
