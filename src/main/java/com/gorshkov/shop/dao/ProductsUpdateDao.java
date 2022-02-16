@@ -7,13 +7,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.StringJoiner;
 
-public class ProductsAddDao {
+public class ProductsUpdateDao {
 
-    private static final String DELIMITER = "', '";
-    private static final String INSERT_INTO = "INSERT INTO db.products VALUES ('";
-    private static final String CLOSE_BRACKET = "');";
+    private static final String UPDATE = "UPDATE db.products SET id='";
+
+//    UPDATE table_name
+//    SET id = id, name = name, price = price
+//    WHERE condition;
 
     public void process(HttpServletRequest request, Map<String, Object> pageVariables) {
 
@@ -30,17 +31,17 @@ public class ProductsAddDao {
         fields.add(name);
         fields.add(price);
 
-        String insertQuery = createInsertQuery(fields);
-        boolean execute = execute(insertQuery);
+        String updateQuery = createUpdateQuery(fields);
+        boolean execute = execute(updateQuery);
     }
 
-    public static String createInsertQuery(ArrayList<String> fields) {
-        StringJoiner joiner = new StringJoiner(DELIMITER,
-                INSERT_INTO, CLOSE_BRACKET);
-        for (String field : fields) {
-            joiner.add(field);
-        }
-        return joiner.toString();
+    public static String createUpdateQuery(ArrayList<String> fields) {
+        return UPDATE + fields.get(0) +
+                "', name='" + fields.get(1) +
+                "', price='" + fields.get(2) +
+                "' WHERE id='" +
+                fields.get(0) +
+                "';";
     }
 
     public static boolean execute(String query) {

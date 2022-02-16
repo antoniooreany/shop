@@ -1,6 +1,6 @@
 package com.gorshkov.shop.servlet;
 
-import com.gorshkov.shop.service.ProductsAddService;
+import com.gorshkov.shop.service.ProductsUpdateService;
 import com.gorshkov.shop.templater.PageGenerator;
 
 import javax.servlet.http.HttpServlet;
@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-public class ProductsAddServlet extends HttpServlet {
+public class ProductsUpdateServlet extends HttpServlet {
 
-    private final ProductsAddService productsAddService;
+    private final ProductsUpdateService productsUpdateService;
 
-    public ProductsAddServlet(ProductsAddService productsAddService) {
-        this.productsAddService = productsAddService;
+    public ProductsUpdateServlet(ProductsUpdateService productsUpdateService) {
+        this.productsUpdateService = productsUpdateService;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class ProductsAddServlet extends HttpServlet {
         Map<String, Object> pageVariables = PageVarialbesCreator.createPageVariablesMap(request);
         pageVariables.put("message", "");
 
-        response.getWriter().println(PageGenerator.instance().getPage("productAdd.html", pageVariables));
+        response.getWriter().println(PageGenerator.instance().getPage("productUpdate.html", pageVariables));
 
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
@@ -36,13 +36,13 @@ public class ProductsAddServlet extends HttpServlet {
         response.setContentType("text/html;charset=utf-8");
 
         PageGenerator pageGenerator = PageGenerator.instance();
-        String page = pageGenerator.getPage("productAdd.html", pageVariables);
+        String page = pageGenerator.getPage("productUpdate.html", pageVariables);
         try {
             response.getWriter()
                     .println(page);
         } catch (IOException e) {
             throw new RuntimeException("Something is wrong with IO", e);
         }
-        productsAddService.process(request, pageVariables);
+        productsUpdateService.process(request, pageVariables);
     }
 }
