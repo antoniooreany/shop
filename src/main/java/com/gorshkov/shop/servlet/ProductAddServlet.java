@@ -82,23 +82,6 @@ public class ProductAddServlet extends HttpServlet {
 
     }
 
-    private List<Product> findAll() throws SQLException {
-        List<Product> productList = new ArrayList<>();
-
-        try (Statement statement = Connector.getStatement();) {
-            String query = "SELECT * FROM db.products;";
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                String name = resultSet.getString(2);
-                int price = resultSet.getInt(3);
-                productList.add(new Product(id, name, price));
-            }
-        }
-        return productList;
-    }
-
     private static Map<String, Object> createPageVariablesMap(HttpServletRequest request) {
         Map<String, Object> pageVariables = new HashMap<>();
         pageVariables.put("method", request.getMethod());
