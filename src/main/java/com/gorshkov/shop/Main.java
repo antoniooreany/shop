@@ -22,7 +22,7 @@ public class Main {
 
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         contextHandler.addServlet(new ServletHolder(productsServlet), "/products");
-        contextHandler.addServlet(new ServletHolder(productsAddServlet), "/products/add"); //todo is it correct to add more than 1 servlet to the handler?
+        contextHandler.addServlet(new ServletHolder(productsAddServlet), "/products/add");
 
         Server server = new Server(3000);
         server.setHandler(contextHandler);

@@ -3,7 +3,6 @@ package com.gorshkov.shop.service;
 import com.gorshkov.shop.dao.ProductsDao;
 import com.gorshkov.shop.model.Product;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class ProductsService {
