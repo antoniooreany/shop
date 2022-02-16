@@ -1,8 +1,7 @@
 package com.gorshkov.shop.servlet;
 
-import com.gorshkov.shop.main.Connector;
-import com.gorshkov.shop.main.Product;
-import com.gorshkov.shop.main.ProductAddService;
+import com.gorshkov.shop.service.ProductsAddService;
+import com.gorshkov.shop.model.QueryCreator;
 import com.gorshkov.shop.templater.PageGenerator;
 
 import javax.servlet.ServletException;
@@ -10,20 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class ProductAddServlet extends HttpServlet {
+public class ProductsAddServlet extends HttpServlet {
 
-    private final ProductAddService productAddService;
+    private final ProductsAddService productsAddService;
 
-    public ProductAddServlet(ProductAddService productAddService) {
-        this.productAddService = productAddService;
+    public ProductsAddServlet(ProductsAddService productsAddService) {
+        this.productsAddService = productsAddService;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.gorshkov.shop.main;
+package com.gorshkov.shop.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

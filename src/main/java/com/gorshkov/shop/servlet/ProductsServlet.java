@@ -1,8 +1,8 @@
 package com.gorshkov.shop.servlet;
 
-import com.gorshkov.shop.main.Connector;
-import com.gorshkov.shop.main.Product;
-import com.gorshkov.shop.main.ProductService;
+import com.gorshkov.shop.model.Connector;
+import com.gorshkov.shop.model.Product;
+import com.gorshkov.shop.service.ProductsService;
 import com.gorshkov.shop.templater.PageGenerator;
 
 import javax.servlet.ServletException;
@@ -20,44 +20,23 @@ import java.util.Map;
 
 public class ProductsServlet extends HttpServlet {
 
-    private final ProductService productService;
+    private final ProductsService productsService;
 
-    public ProductsServlet(ProductService productService) {
-        this.productService = productService;
+    public ProductsServlet(ProductsService productsService) {
+        this.productsService = productsService;
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Product> productList = null; //todo to DB
-        try {
-            productList = findAll();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        List<Product> productsList = productsService.findAll();
 
         response.setStatus(HttpServletResponse.SC_OK);
 
         PageGenerator pageGenerator = PageGenerator.instance();
         Map<String, Object> pageVariables = new HashMap<>();
-        pageVariables.put("products", productList);
+        pageVariables.put("products", productsList);
         String page = pageGenerator.getPage("products.html", pageVariables);
         response.getWriter().println(page);
     }
 
-    private List<Product> findAll() throws SQLException {
-        List<Product> productList = new ArrayList<>();
-
-        try (Statement statement = Connector.getStatement();) {
-            String query = "SELECT * FROM db.products;";
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                String name = resultSet.getString(2);
-                int price = resultSet.getInt(3);
-                productList.add(new Product(id, name, price));
-            }
-        }
-        return productList;
-    }
 }

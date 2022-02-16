@@ -1,4 +1,4 @@
-package com.gorshkov.shop.servlet;
+package com.gorshkov.shop.model;
 
 import java.util.ArrayList;
 import java.util.StringJoiner;

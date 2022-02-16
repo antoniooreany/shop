@@ -1,4 +1,4 @@
-package com.gorshkov.shop.main;
+package com.gorshkov.shop.model;
 
 public class Product {
     private final int id;
