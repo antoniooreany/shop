@@ -8,36 +8,33 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class ProductsUpdateDao {
+public class ProductsDeleteDao {
 
-    private static final String UPDATE = "UPDATE db.products SET id='";
+    private static final String DELETE = "DELETE FROM db.products WHERE id='";
+
+//    DELETE FROM db.products WHERE id=id;
 
     public void process(HttpServletRequest request, Map<String, Object> pageVariables) {
 
         String id = request.getParameter("id");
-        String name = request.getParameter("name");
-        String price = request.getParameter("price");
+//        String name = request.getParameter("name");
+//        String price = request.getParameter("price");
 
         pageVariables.put("id", id == null ? "" : id);
-        pageVariables.put("name", name == null ? "" : name);
-        pageVariables.put("price", price == null ? "" : price);
+//        pageVariables.put("name", name == null ? "" : name);
+//        pageVariables.put("price", price == null ? "" : price);
 
         ArrayList<String> fields = new ArrayList<>();
         fields.add(id);
-        fields.add(name);
-        fields.add(price);
+//        fields.add(name);
+//        fields.add(price);
 
-        String updateQuery = createUpdateQuery(fields);
+        String updateQuery = createDeleteQuery(fields);
         boolean execute = execute(updateQuery);
     }
 
-    public static String createUpdateQuery(ArrayList<String> fields) {
-        return UPDATE + fields.get(0) +
-                "', name='" + fields.get(1) +
-                "', price='" + fields.get(2) +
-                "' WHERE id='" +
-                fields.get(0) +
-                "';";
+    public static String createDeleteQuery(ArrayList<String> fields) {
+        return DELETE + fields.get(0) + "';";
     }
 
     public static boolean execute(String query) {

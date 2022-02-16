@@ -24,7 +24,7 @@ public class ProductsAddServlet extends HttpServlet {
         Map<String, Object> pageVariables = PageVarialbesCreator.createPageVariablesMap(request);
         pageVariables.put("message", "");
 
-        response.getWriter().println(PageGenerator.instance().getPage("productAdd.html", pageVariables));
+        response.getWriter().println(PageGenerator.instance().getPage("productsAdd.html", pageVariables));
 
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
@@ -36,7 +36,7 @@ public class ProductsAddServlet extends HttpServlet {
         response.setContentType("text/html;charset=utf-8");
 
         PageGenerator pageGenerator = PageGenerator.instance();
-        String page = pageGenerator.getPage("productAdd.html", pageVariables);
+        String page = pageGenerator.getPage("productsAdd.html", pageVariables);
         try {
             response.getWriter()
                     .println(page);

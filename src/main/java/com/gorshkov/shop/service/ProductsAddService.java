@@ -3,7 +3,6 @@ package com.gorshkov.shop.service;
 import com.gorshkov.shop.dao.ProductsAddDao;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 public class ProductsAddService {

@@ -1,5 +1,6 @@
 package com.gorshkov.shop.servlet;
 
+import com.gorshkov.shop.service.ProductsDeleteService;
 import com.gorshkov.shop.service.ProductsUpdateService;
 import com.gorshkov.shop.templater.PageGenerator;
 
@@ -9,12 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-public class ProductsUpdateServlet extends HttpServlet {
+public class ProductsDeleteServlet extends HttpServlet {
 
-    private final ProductsUpdateService productsUpdateService;
+    private final ProductsDeleteService productsDeleteService;
 
-    public ProductsUpdateServlet(ProductsUpdateService productsUpdateService) {
-        this.productsUpdateService = productsUpdateService;
+    public ProductsDeleteServlet(ProductsDeleteService productsDeleteService) {
+        this.productsDeleteService = productsDeleteService;
     }
 
     @Override
@@ -24,7 +25,7 @@ public class ProductsUpdateServlet extends HttpServlet {
         Map<String, Object> pageVariables = PageVarialbesCreator.createPageVariablesMap(request);
         pageVariables.put("message", "");
 
-        response.getWriter().println(PageGenerator.instance().getPage("productsUpdate.html", pageVariables));
+        response.getWriter().println(PageGenerator.instance().getPage("productsDelete.html", pageVariables));
 
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
@@ -36,13 +37,13 @@ public class ProductsUpdateServlet extends HttpServlet {
         response.setContentType("text/html;charset=utf-8");
 
         PageGenerator pageGenerator = PageGenerator.instance();
-        String page = pageGenerator.getPage("productsUpdate.html", pageVariables);
+        String page = pageGenerator.getPage("productsDelete.html", pageVariables);
         try {
             response.getWriter()
                     .println(page);
         } catch (IOException e) {
             throw new RuntimeException("Something is wrong with IO", e);
         }
-        productsUpdateService.process(request, pageVariables);
+        productsDeleteService.process(request, pageVariables);
     }
 }

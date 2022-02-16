@@ -2,11 +2,14 @@ package com.gorshkov.shop;
 
 import com.gorshkov.shop.dao.ProductsAddDao;
 import com.gorshkov.shop.dao.ProductsDao;
+import com.gorshkov.shop.dao.ProductsDeleteDao;
 import com.gorshkov.shop.dao.ProductsUpdateDao;
 import com.gorshkov.shop.service.ProductsAddService;
+import com.gorshkov.shop.service.ProductsDeleteService;
 import com.gorshkov.shop.service.ProductsService;
 import com.gorshkov.shop.service.ProductsUpdateService;
 import com.gorshkov.shop.servlet.ProductsAddServlet;
+import com.gorshkov.shop.servlet.ProductsDeleteServlet;
 import com.gorshkov.shop.servlet.ProductsServlet;
 import com.gorshkov.shop.servlet.ProductsUpdateServlet;
 import org.eclipse.jetty.server.Server;
@@ -32,6 +35,11 @@ public class Main {
         ProductsUpdateService productsUpdateService = new ProductsUpdateService(productsUpdateDao);
         ProductsUpdateServlet productsUpdateServlet = new ProductsUpdateServlet(productsUpdateService);
         contextHandler.addServlet(new ServletHolder(productsUpdateServlet), "/products/update");
+
+        ProductsDeleteDao productsDeleteDao = new ProductsDeleteDao();
+        ProductsDeleteService productsDeleteService = new ProductsDeleteService(productsDeleteDao);
+        ProductsDeleteServlet productsDeleteServlet = new ProductsDeleteServlet(productsDeleteService);
+        contextHandler.addServlet(new ServletHolder(productsDeleteServlet), "/products/delete");
 
         Server server = new Server(3000);
         server.setHandler(contextHandler);
