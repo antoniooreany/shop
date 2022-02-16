@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,17 +47,17 @@ public class ProductsServlet extends HttpServlet {
     private List<Product> findAll() throws SQLException {
         List<Product> productList = new ArrayList<>();
 
-        Statement statement = Connector.getStatement();
-        String query = "SELECT * FROM db.products;";
-        ResultSet resultSet = statement.executeQuery(query);
+        try (Statement statement = Connector.getStatement();) {
+            String query = "SELECT * FROM db.products;";
+            ResultSet resultSet = statement.executeQuery(query);
 
-        while (resultSet.next()) {
-            int id = resultSet.getInt(1);
-            String name = resultSet.getString(2);
-            int price = resultSet.getInt(3);
-            productList.add(new Product(id, name, price));
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                int price = resultSet.getInt(3);
+                productList.add(new Product(id, name, price));
+            }
         }
-
         return productList;
     }
 }
