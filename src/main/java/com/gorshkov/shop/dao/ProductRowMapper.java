@@ -10,6 +10,10 @@ public class ProductRowMapper {
         int id = resultSet.getObject("id", Integer.class);
         String name = resultSet.getObject("name", String.class);
         double price = resultSet.getObject("price", Double.class);
-        return new Product(id, name, price);
+        return Product.builder()
+                .id(id)
+                .name(name)
+                .price(price)
+                .build();
     }
 }
