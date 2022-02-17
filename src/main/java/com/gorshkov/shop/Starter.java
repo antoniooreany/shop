@@ -1,22 +1,22 @@
 package com.gorshkov.shop;
 
-import com.gorshkov.shop.dao.ProductsDao;
+import com.gorshkov.shop.dao.JdbcProductsDao;
 import com.gorshkov.shop.service.ProductsService;
-import com.gorshkov.shop.servlet.ProductsAddServlet;
-import com.gorshkov.shop.servlet.ProductsDeleteServlet;
-import com.gorshkov.shop.servlet.ProductsServlet;
-import com.gorshkov.shop.servlet.ProductsUpdateServlet;
+import com.gorshkov.shop.web.ProductsAddServlet;
+import com.gorshkov.shop.web.ProductsDeleteServlet;
+import com.gorshkov.shop.web.ProductsServlet;
+import com.gorshkov.shop.web.ProductsUpdateServlet;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
-public class Main {
+public class Starter {
     public static void main(String[] args) throws Exception {
 
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 
-        ProductsDao productsDao = new ProductsDao();
-        ProductsService productsService = new ProductsService(productsDao);
+        JdbcProductsDao jdbcProductsDao = new JdbcProductsDao();
+        ProductsService productsService = new ProductsService(jdbcProductsDao);
 
         ProductsServlet productsServlet = new ProductsServlet(productsService);
         ProductsAddServlet productsAddServlet = new ProductsAddServlet(productsService);

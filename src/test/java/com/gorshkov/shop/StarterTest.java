@@ -2,7 +2,7 @@ package com.gorshkov.shop;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MainTest {
+class StarterTest {
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
