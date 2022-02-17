@@ -1,13 +1,7 @@
 package com.gorshkov.shop;
 
-import com.gorshkov.shop.dao.ProductsAddDao;
 import com.gorshkov.shop.dao.ProductsDao;
-import com.gorshkov.shop.dao.ProductsDeleteDao;
-import com.gorshkov.shop.dao.ProductsUpdateDao;
-import com.gorshkov.shop.service.ProductsAddService;
-import com.gorshkov.shop.service.ProductsDeleteService;
 import com.gorshkov.shop.service.ProductsService;
-import com.gorshkov.shop.service.ProductsUpdateService;
 import com.gorshkov.shop.servlet.ProductsAddServlet;
 import com.gorshkov.shop.servlet.ProductsDeleteServlet;
 import com.gorshkov.shop.servlet.ProductsServlet;
@@ -23,22 +17,15 @@ public class Main {
 
         ProductsDao productsDao = new ProductsDao();
         ProductsService productsService = new ProductsService(productsDao);
+
         ProductsServlet productsServlet = new ProductsServlet(productsService);
+        ProductsAddServlet productsAddServlet = new ProductsAddServlet(productsService);
+        ProductsUpdateServlet productsUpdateServlet = new ProductsUpdateServlet(productsService);
+        ProductsDeleteServlet productsDeleteServlet = new ProductsDeleteServlet(productsService);
+
         contextHandler.addServlet(new ServletHolder(productsServlet), "/products");
-
-        ProductsAddDao productAddDao = new ProductsAddDao();
-        ProductsAddService productsAddService = new ProductsAddService(productAddDao);
-        ProductsAddServlet productsAddServlet = new ProductsAddServlet(productsAddService);
         contextHandler.addServlet(new ServletHolder(productsAddServlet), "/products/add");
-
-        ProductsUpdateDao productsUpdateDao = new ProductsUpdateDao();
-        ProductsUpdateService productsUpdateService = new ProductsUpdateService(productsUpdateDao);
-        ProductsUpdateServlet productsUpdateServlet = new ProductsUpdateServlet(productsUpdateService);
         contextHandler.addServlet(new ServletHolder(productsUpdateServlet), "/products/update");
-
-        ProductsDeleteDao productsDeleteDao = new ProductsDeleteDao();
-        ProductsDeleteService productsDeleteService = new ProductsDeleteService(productsDeleteDao);
-        ProductsDeleteServlet productsDeleteServlet = new ProductsDeleteServlet(productsDeleteService);
         contextHandler.addServlet(new ServletHolder(productsDeleteServlet), "/products/delete");
 
         Server server = new Server(3000);

@@ -1,7 +1,7 @@
 package com.gorshkov.shop.servlet;
 
+import com.gorshkov.shop.service.ProductsService;
 import com.gorshkov.shop.templater.PageVarialbesCreator;
-import com.gorshkov.shop.service.ProductsAddService;
 import com.gorshkov.shop.templater.PageGenerator;
 
 import javax.servlet.http.HttpServlet;
@@ -12,10 +12,10 @@ import java.util.Map;
 
 public class ProductsAddServlet extends HttpServlet {
 
-    private final ProductsAddService productsAddService;
+    private final ProductsService productsService;
 
-    public ProductsAddServlet(ProductsAddService productsAddService) {
-        this.productsAddService = productsAddService;
+    public ProductsAddServlet(ProductsService productsService) {
+        this.productsService = productsService;
     }
 
     @Override
@@ -44,6 +44,6 @@ public class ProductsAddServlet extends HttpServlet {
         } catch (IOException e) {
             throw new RuntimeException("Something is wrong with IO", e);
         }
-        productsAddService.process(request, pageVariables);
+        productsService.processAdd(request, pageVariables);
     }
 }
