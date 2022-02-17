@@ -80,11 +80,10 @@ public class JdbcProductsDao implements ProductDao {
         return DELETE + fields.get(0) + "';";
     }
 
-    private boolean executeQuery(String query) {
+    private void executeQuery(String query) {
         try (Connection connection = connectionFactory.getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate(query);
-            return true;
         } catch (SQLException e) {
             throw new RuntimeException("The query is illegal", e);
         }
