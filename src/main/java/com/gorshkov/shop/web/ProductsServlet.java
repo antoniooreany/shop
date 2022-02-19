@@ -23,7 +23,7 @@ public class ProductsServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<Product> productsList = productsService.findAll();
 
         response.setStatus(HttpServletResponse.SC_OK);
@@ -33,5 +33,4 @@ public class ProductsServlet extends HttpServlet {
         String page = pageGenerator.getPage("products.html", pageVariables);
         response.getWriter().println(page);
     }
-
 }

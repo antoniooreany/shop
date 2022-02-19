@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class ProductsUpdateServlet extends HttpServlet {
@@ -20,13 +21,9 @@ public class ProductsUpdateServlet extends HttpServlet {
     }
 
     @Override
-    public void doGet(HttpServletRequest request,
-                      HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        Map<String, Object> pageVariables = PageVarialbesCreator.createPageVariablesMap(request);
-        pageVariables.put("message", "");
-
-        response.getWriter().println(PageGenerator.instance().getPage("productsUpdate.html", pageVariables));
+        response.getWriter().println(PageGenerator.instance().getPage("productsUpdate.html", new HashMap<>()));
 
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
@@ -34,11 +31,10 @@ public class ProductsUpdateServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) {
-        Map<String, Object> pageVariables = PageVarialbesCreator.createPageVariablesMap(request);
         response.setContentType("text/html;charset=utf-8");
 
         PageGenerator pageGenerator = PageGenerator.instance();
-        String page = pageGenerator.getPage("productsUpdate.html", pageVariables);
+        String page = pageGenerator.getPage("productsUpdate.html", new HashMap<>());
         try {
             response.getWriter()
                     .println(page);

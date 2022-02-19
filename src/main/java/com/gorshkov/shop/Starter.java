@@ -13,7 +13,6 @@ import org.eclipse.jetty.servlet.ServletHolder;
 public class Starter {
     public static void main(String[] args) throws Exception {
 
-
         JdbcProductsDao jdbcProductsDao = new JdbcProductsDao();
         ProductsService productsService = new ProductsService(jdbcProductsDao);
 

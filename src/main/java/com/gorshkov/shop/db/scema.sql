@@ -2,3 +2,6 @@ CREATE TABLE products (
   id SERIAL NOT NULL PRIMARY KEY,
   name VARCHAR (40) NOT NULL,
   price INTEGER NOT NULL);
+
+INSERT INTO products
+VALUES (1, 'potatoes', 10);

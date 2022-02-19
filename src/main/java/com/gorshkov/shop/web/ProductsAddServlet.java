@@ -21,8 +21,7 @@ public class ProductsAddServlet extends HttpServlet {
     }
 
     @Override
-    public void doGet(HttpServletRequest request,
-                      HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.getWriter().println(PageGenerator.instance().getPage("productsAdd.html", new HashMap<>()));
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
@@ -30,7 +29,6 @@ public class ProductsAddServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) {
-//        Map<String, Object> pageVariables = PageVarialbesCreator.createPageVariablesMap(request);
         response.setContentType("text/html;charset=utf-8");
 
         PageGenerator pageGenerator = PageGenerator.instance();
