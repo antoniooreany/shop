@@ -44,6 +44,8 @@ public class ProductsDeleteServlet extends HttpServlet {
         } catch (IOException e) {
             throw new RuntimeException("Something is wrong with IO", e);
         }
-        productsService.processDelete(request, pageVariables);
+
+        int productId = Integer.parseInt(request.getParameter("id"));
+        productsService.delete(productId);
     }
 }

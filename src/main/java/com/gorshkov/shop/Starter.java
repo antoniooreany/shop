@@ -13,7 +13,6 @@ import org.eclipse.jetty.servlet.ServletHolder;
 public class Starter {
     public static void main(String[] args) throws Exception {
 
-        ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 
         JdbcProductsDao jdbcProductsDao = new JdbcProductsDao();
         ProductsService productsService = new ProductsService(jdbcProductsDao);
@@ -23,6 +22,7 @@ public class Starter {
         ProductsUpdateServlet productsUpdateServlet = new ProductsUpdateServlet(productsService);
         ProductsDeleteServlet productsDeleteServlet = new ProductsDeleteServlet(productsService);
 
+        ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         contextHandler.addServlet(new ServletHolder(productsServlet), "/products");
         contextHandler.addServlet(new ServletHolder(productsAddServlet), "/products/add");
         contextHandler.addServlet(new ServletHolder(productsUpdateServlet), "/products/update");

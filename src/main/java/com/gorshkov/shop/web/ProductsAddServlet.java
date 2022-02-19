@@ -1,8 +1,9 @@
 package com.gorshkov.shop.web;
 
+import com.gorshkov.shop.model.Product;
 import com.gorshkov.shop.service.ProductsService;
-import com.gorshkov.shop.templater.PageVarialbesCreator;
 import com.gorshkov.shop.templater.PageGenerator;
+import com.gorshkov.shop.templater.PageVarialbesCreator;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +45,11 @@ public class ProductsAddServlet extends HttpServlet {
         } catch (IOException e) {
             throw new RuntimeException("Something is wrong with IO", e);
         }
-        productsService.processAdd(request, pageVariables);
+
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        double price = Double.parseDouble(request.getParameter("price"));
+        Product product = new Product(id, name, price);
+        productsService.add(product);
     }
 }

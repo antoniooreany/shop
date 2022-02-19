@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ProductRowMapper {
-    public static Product mapRow(ResultSet resultSet) throws SQLException {
-        int id = resultSet.getObject("id", Integer.class);
-        String name = resultSet.getObject("name", String.class);
-        double price = resultSet.getObject("price", Double.class);
+    public Product mapRow(ResultSet resultSet) throws SQLException {
+        int id = resultSet.getInt("id");
+        String name = resultSet.getString("name");
+        double price = resultSet.getDouble("price");
         return Product.builder()
                 .id(id)
                 .name(name)
