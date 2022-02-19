@@ -6,12 +6,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcProductsDao implements ProductDao {
+public class JdbcProductsDao implements ProductsDao {
 
     private static final String SELECT_ALL_FROM_DB = "SELECT * FROM db.products;";
     private static final String UPDATE = "UPDATE db.products SET id=";
     private static final String DELIMITER = ", ";
-    private static final String INSERT_INTO_DB_PRODUCTS_VALUES = "INSERT INTO db.products (id, name, price) VALUES (";
+    private static final String INSERT_INTO_DB_PRODUCTS_VALUES = "INSERT INTO db.products VALUES (";
     private static final String CLOSE_BRACKET = ");";
     private static final String DELETE = "DELETE FROM db.products WHERE id=";
 
@@ -79,7 +79,6 @@ public class JdbcProductsDao implements ProductDao {
             preparedStatement.setString(2, fields.get(1));
             preparedStatement.setDouble(3, Double.parseDouble(fields.get(2)));
             preparedStatement.setInt(4, Integer.parseInt(fields.get(0)));
-
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Cannot update product", e);

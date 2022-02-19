@@ -8,26 +8,26 @@ import java.util.Properties;
 
 public class PropertiesReader {
     private static final String PATH = "./src/main/resources/application.properties";
+//    private static final String PATH = PropertiesReader.class.getResource("application.properties").getPath();
 
-    private static Properties properties = new Properties();
+    private static final Properties properties = new Properties();
 
-    private static void loadProperties(String path) {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(path));
+    private static void readProperties() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("=");
                 properties.put(parts[0], parts[1]);
             }
         } catch (FileNotFoundException e) {
-            throw new RuntimeException("No properties file found at: " + path);
+            throw new RuntimeException("No properties file found at: " + PropertiesReader.PATH);
         } catch (IOException e) {
-            throw new RuntimeException("Something's wrong with your properties file at: " + path);
+            throw new RuntimeException("Something's wrong with your properties file at: " + PropertiesReader.PATH);
         }
     }
 
     public static Properties getProperties() {
-        loadProperties(PATH);
-        return properties;
+        readProperties();
+        return new Properties(properties);
     }
 }

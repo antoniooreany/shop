@@ -12,8 +12,7 @@ import java.util.Map;
 
 
 public class PageGenerator {
-    private static final String HTML_DIR = PropertiesReader
-            .getProperties().getProperty("htmlDir");
+    private static final String HTML_DIR = PropertiesReader.getProperties().getProperty("htmlDir");
 
     private static PageGenerator pageGenerator;
     private final Configuration cfg;

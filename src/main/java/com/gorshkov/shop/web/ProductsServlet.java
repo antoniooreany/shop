@@ -16,6 +16,7 @@ import java.util.Map;
 public class ProductsServlet extends HttpServlet {
 
     private final ProductsService productsService;
+    private final PageGenerator pageGenerator = PageGenerator.instance();
 
     public ProductsServlet(ProductsService productsService) {
         this.productsService = productsService;
@@ -27,7 +28,6 @@ public class ProductsServlet extends HttpServlet {
 
         response.setStatus(HttpServletResponse.SC_OK);
 
-        PageGenerator pageGenerator = PageGenerator.instance();
         Map<String, Object> pageVariables = new HashMap<>();
         pageVariables.put("products", productsList);
         String page = pageGenerator.getPage("products.html", pageVariables);

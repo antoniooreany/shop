@@ -1,30 +1,31 @@
 package com.gorshkov.shop.service;
 
 import com.gorshkov.shop.dao.JdbcProductsDao;
+import com.gorshkov.shop.dao.ProductsDao;
 import com.gorshkov.shop.model.Product;
 
 import java.util.List;
 
 public class ProductsService {
-    private final JdbcProductsDao jdbcProductsDao;
+    private final ProductsDao productsDao;
 
-    public ProductsService(JdbcProductsDao jdbcProductsDao) {
-        this.jdbcProductsDao = jdbcProductsDao;
+    public ProductsService(JdbcProductsDao productDao) {
+        this.productsDao = productDao;
     }
 
     public List<Product> findAll() {
-        return jdbcProductsDao.findAll();
+        return productsDao.findAll();
     }
 
     public void add(Product product) {
-        jdbcProductsDao.save(product);
+        productsDao.save(product);
     }
 
     public void update(Product product) {
-        jdbcProductsDao.update(product);
+        productsDao.update(product);
     }
 
     public void delete(int productId) {
-        jdbcProductsDao.delete(productId);
+        productsDao.delete(productId);
     }
 }
