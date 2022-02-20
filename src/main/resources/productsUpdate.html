@@ -6,9 +6,9 @@
 </head>
 <body>
     <form action="/products/update" method="POST">
-        Id: <input type="text" placeholder="Enter id of the product to change" name="id"/>
-        Name: <input type="text" placeholder="Enter name" name="name"/>
-        Price: <input type="text" placeholder="Enter price" name="price"/>
+        Id: ${product.id}
+        Name: <input type="text" placeholder="Enter name" name="name" value="${product.name}"/>
+        Price: <input type="text" placeholder="Enter price" name="price" value="${product.price}"/>
         <input type="submit" value="Ok">
     </form>
 </body>

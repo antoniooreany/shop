@@ -15,6 +15,7 @@ import java.util.Map;
 public class ProductsUpdateServlet extends HttpServlet {
 
     private final ProductsService productsService;
+    private int id;
 
     public ProductsUpdateServlet(ProductsService productsService) {
         this.productsService = productsService;
@@ -23,7 +24,17 @@ public class ProductsUpdateServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        response.getWriter().println(PageGenerator.instance().getPage("productsUpdate.html", new HashMap<>()));
+        String pathInfo = request.getPathInfo();
+        String[] parts = pathInfo.split("/");
+        id = Integer.parseInt(parts[1]);
+        Product productById = productsService.findById(id);
+
+        Map<String, Object> pageVariables = new HashMap<>();
+//        pageVariables.put("id", productById.getId());
+//        pageVariables.put("name", productById.getName());
+//        pageVariables.put("price", productById.getPrice());
+        pageVariables.put("product", productById);
+        response.getWriter().println(PageGenerator.instance().getPage("productsUpdate.html", pageVariables));
 
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
@@ -34,17 +45,17 @@ public class ProductsUpdateServlet extends HttpServlet {
         response.setContentType("text/html;charset=utf-8");
 
         PageGenerator pageGenerator = PageGenerator.instance();
-        String page = pageGenerator.getPage("productsUpdate.html", new HashMap<>());
-        try {
-            response.getWriter()
-                    .println(page);
-        } catch (IOException e) {
-            throw new RuntimeException("Something is wrong with IO", e);
-        }
-        int id = Integer.parseInt(request.getParameter("id"));
+        Map<String, Object> pageVariables = new HashMap<>();
         String name = request.getParameter("name");
         double price = Double.parseDouble(request.getParameter("price"));
         Product product = new Product(id, name, price);
+        pageVariables.put("product", product);
+        String page = pageGenerator.getPage("productsUpdate.html", pageVariables);
+        try {
+            response.getWriter().println(page);
+        } catch (IOException e) {
+            throw new RuntimeException("Something is wrong with IO", e);
+        }
         productsService.update(product);
     }
 }

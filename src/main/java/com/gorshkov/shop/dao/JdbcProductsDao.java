@@ -10,8 +10,8 @@ public class JdbcProductsDao implements ProductsDao {
 
     private static final String SELECT_ALL_FROM_DB = "SELECT * FROM db.products;";
     private static final String UPDATE = "UPDATE db.products SET id=";
-    private static final String DELIMITER = ", ";
     private static final String INSERT_INTO_DB_PRODUCTS_VALUES = "INSERT INTO db.products VALUES (";
+    private static final String DELIMITER = ", ";
     private static final String CLOSE_BRACKET = ");";
     private static final String DELETE = "DELETE FROM db.products WHERE id=";
 
@@ -27,7 +27,7 @@ public class JdbcProductsDao implements ProductsDao {
             }
             return productList;
         } catch (SQLException e) {
-            throw new RuntimeException("The SQL query is incorrect", e);
+            throw new RuntimeException("Cannot execute select", e);
         }
     }
 
@@ -48,6 +48,36 @@ public class JdbcProductsDao implements ProductsDao {
         fields.add(String.valueOf(productId));
         String deleteQuery = createDeleteQuery();
         executeDeleteQuery(deleteQuery, fields);
+    }
+
+    @Override
+    public Product findById(int id) {
+        String findByIdQuery = createFindByIdQuery();
+        try (Connection connection = connectionFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(findByIdQuery)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return new Product(resultSet.getInt("id"),
+                    resultSet.getString("name"),
+                    resultSet.getDouble("price"));
+        } catch (SQLException e) {
+            throw new RuntimeException("Cannot select product by id", e);
+        }
+    }
+
+    private ResultSet executeFindByIdQuery(String query, int id) {
+        try (Connection connection = connectionFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
+            return preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException("Cannot select product by id", e);
+        }
+    }
+
+    private String createFindByIdQuery() {
+        return "SELECT * FROM db.products WHERE id=?;";
     }
 
     private String createInsertQuery() {

@@ -28,4 +28,8 @@ public class ProductsService {
     public void delete(int productId) {
         productsDao.delete(productId);
     }
+
+    public Product findById(int id) {
+        return productsDao.findById(id);
+    }
 }

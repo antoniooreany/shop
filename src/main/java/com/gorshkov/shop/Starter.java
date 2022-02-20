@@ -24,7 +24,7 @@ public class Starter {
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         contextHandler.addServlet(new ServletHolder(productsServlet), "/products");
         contextHandler.addServlet(new ServletHolder(productsAddServlet), "/products/add");
-        contextHandler.addServlet(new ServletHolder(productsUpdateServlet), "/products/update");
+        contextHandler.addServlet(new ServletHolder(productsUpdateServlet), "/products/update/*");
         contextHandler.addServlet(new ServletHolder(productsDeleteServlet), "/products/delete");
 
         Server server = new Server(3000);
