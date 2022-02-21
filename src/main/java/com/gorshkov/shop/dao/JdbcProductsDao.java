@@ -53,24 +53,36 @@ public class JdbcProductsDao implements ProductsDao {
     @Override
     public Product findById(int id) {
         String findByIdQuery = createFindByIdQuery();
-        try (Connection connection = connectionFactory.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(findByIdQuery)) {
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
+        ResultSet resultSet = executeFindByIdQuery(findByIdQuery, id);
+        try {
+//            resultSet.next();
             return new Product(resultSet.getInt("id"),
-                    resultSet.getString("name"),
-                    resultSet.getDouble("price"));
+                        resultSet.getString("name"),
+                        resultSet.getDouble("price"));
         } catch (SQLException e) {
             throw new RuntimeException("Cannot select product by id", e);
         }
+
+//        try (Connection connection = connectionFactory.getConnection();
+//             PreparedStatement preparedStatement = connection.prepareStatement(findByIdQuery)) {
+//            preparedStatement.setInt(1, id);
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//            resultSet.next();
+//            return new Product(resultSet.getInt("id"),
+//                    resultSet.getString("name"),
+//                    resultSet.getDouble("price"));
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Cannot select product by id", e);
+//        }
     }
 
     private ResultSet executeFindByIdQuery(String query, int id) {
         try (Connection connection = connectionFactory.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
-            return preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
+//            resultSet.next();
+            return resultSet;
         } catch (SQLException e) {
             throw new RuntimeException("Cannot select product by id", e);
         }
