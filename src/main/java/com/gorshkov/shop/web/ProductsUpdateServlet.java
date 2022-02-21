@@ -26,13 +26,10 @@ public class ProductsUpdateServlet extends HttpServlet {
 
         String pathInfo = request.getPathInfo();
         String[] parts = pathInfo.split("/");
-        id = Integer.parseInt(parts[1]);
+        id = Integer.parseInt(parts[1]); //todo why 1st, not 2nd?
         Product productById = productsService.findById(id);
 
         Map<String, Object> pageVariables = new HashMap<>();
-//        pageVariables.put("id", productById.getId());
-//        pageVariables.put("name", productById.getName());
-//        pageVariables.put("price", productById.getPrice());
         pageVariables.put("product", productById);
         response.getWriter().println(PageGenerator.instance().getPage("productsUpdate.html", pageVariables));
 
@@ -41,7 +38,7 @@ public class ProductsUpdateServlet extends HttpServlet {
     }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=utf-8");
 
         PageGenerator pageGenerator = PageGenerator.instance();
@@ -57,5 +54,7 @@ public class ProductsUpdateServlet extends HttpServlet {
             throw new RuntimeException("Something is wrong with IO", e);
         }
         productsService.update(product);
+        response.sendRedirect("/products");
+
     }
 }
