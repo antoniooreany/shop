@@ -2,6 +2,7 @@ package com.gorshkov.shop.dao;
 
 import com.gorshkov.shop.model.Product;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +16,14 @@ public class JdbcProductsDao implements ProductsDao {
     private static final String CLOSE_BRACKET = ");";
     private static final String DELETE = "DELETE FROM db.products WHERE id=";
 
-    private final ConnectionFactory connectionFactory = new ConnectionFactory();
+    private final DataSource dataSource;
+
+    public JdbcProductsDao(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     public List<Product> findAll() {
-        try (Connection connection = connectionFactory.getConnection();
+        try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(SELECT_ALL_FROM_DB);) {
             List<Product> productList = new ArrayList<>();
@@ -77,7 +82,7 @@ public class JdbcProductsDao implements ProductsDao {
     }
 
     private ResultSet executeFindByIdQuery(String query, int id) {
-        try (Connection connection = connectionFactory.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -115,7 +120,7 @@ public class JdbcProductsDao implements ProductsDao {
     }
 
     private void executeUpdateQuery(String query, ArrayList<String> fields) {
-        try (Connection connection = connectionFactory.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, Integer.parseInt(fields.get(0)));
             preparedStatement.setString(2, fields.get(1));
@@ -128,7 +133,7 @@ public class JdbcProductsDao implements ProductsDao {
     }
 
     private void executeInsertQuery(String query, ArrayList<String> fields) {
-        try (Connection connection = connectionFactory.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, Integer.parseInt(fields.get(0)));
             preparedStatement.setString(2, fields.get(1));
@@ -140,7 +145,7 @@ public class JdbcProductsDao implements ProductsDao {
     }
 
     private void executeDeleteQuery(String query, ArrayList<String> fields) {
-        try (Connection connection = connectionFactory.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, Integer.parseInt(fields.get(0)));
             preparedStatement.executeUpdate();
