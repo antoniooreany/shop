@@ -1,4 +1,4 @@
-package com.gorshkov.shop.web;
+package com.gorshkov.shop.web.servlet;
 
 import com.gorshkov.shop.service.ProductsService;
 import com.gorshkov.shop.templater.PageVarialbesCreator;
@@ -44,6 +44,6 @@ public class ProductsDeleteServlet extends HttpServlet {
 
         int productId = Integer.parseInt(request.getParameter("id"));
         productsService.delete(productId);
-        response.sendRedirect("/products");
+//        response.sendRedirect("/products");
     }
 }

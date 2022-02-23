@@ -15,6 +15,7 @@ public class JdbcProductsDao implements ProductsDao {
     private static final String DELIMITER = ", ";
     private static final String CLOSE_BRACKET = ");";
     private static final String DELETE = "DELETE FROM db.products WHERE id=";
+    private static final String FIND_BY_ID_QUERY = "SELECT * FROM db.products WHERE id=?;";
 
     private final DataSource dataSource;
 
@@ -94,7 +95,7 @@ public class JdbcProductsDao implements ProductsDao {
     }
 
     private String createFindByIdQuery() {
-        return "SELECT * FROM db.products WHERE id=?;";
+        return FIND_BY_ID_QUERY;
     }
 
     private String createInsertQuery() {

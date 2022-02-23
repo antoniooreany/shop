@@ -1,4 +1,4 @@
-package com.gorshkov.shop.web;
+package com.gorshkov.shop.web.servlet;
 
 import com.gorshkov.shop.model.Product;
 import com.gorshkov.shop.service.ProductsService;
@@ -44,6 +44,6 @@ public class ProductsAddServlet extends HttpServlet {
         double price = Double.parseDouble(request.getParameter("price"));
         Product product = new Product(id, name, price);
         productsService.add(product);
-        response.sendRedirect("/products");
+//        response.sendRedirect("/products");
     }
 }

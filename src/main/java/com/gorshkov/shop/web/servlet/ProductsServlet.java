@@ -1,4 +1,4 @@
-package com.gorshkov.shop.web;
+package com.gorshkov.shop.web.servlet;
 
 import com.gorshkov.shop.model.Product;
 import com.gorshkov.shop.service.ProductsService;
@@ -26,22 +26,6 @@ public class ProductsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Cookie[] cookies = request.getCookies();
-        boolean isValid = false;
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("user-token".equals(cookie.getName())) {
-                    String token = cookie.getValue();
-                    if (tokens.contains(token)) {
-                        isValid = true;
-                    }
-                    break;
-                }
-            }
-        }
-        if (!isValid) {
-            response.sendRedirect("/login");
-        }
 
         List<Product> productsList = productsService.findAll();
 

@@ -1,4 +1,4 @@
-package com.gorshkov.shop.web;
+package com.gorshkov.shop.web.servlet;
 
 import com.gorshkov.shop.model.Product;
 import com.gorshkov.shop.service.ProductsService;
@@ -54,7 +54,7 @@ public class ProductsUpdateServlet extends HttpServlet {
             throw new RuntimeException("Something is wrong with IO", e);
         }
         productsService.update(product);
-        response.sendRedirect("/products");
+//        response.sendRedirect("/products");
 
     }
 }

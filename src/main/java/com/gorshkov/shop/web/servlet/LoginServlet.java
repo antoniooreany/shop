@@ -1,4 +1,4 @@
-package com.gorshkov.shop.web;
+package com.gorshkov.shop.web.servlet;
 
 import com.gorshkov.shop.templater.PageGenerator;
 
