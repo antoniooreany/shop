@@ -28,7 +28,7 @@ public class ProductsAddServlet extends HttpServlet {
     }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=utf-8");
 
         PageGenerator pageGenerator = PageGenerator.instance();
@@ -44,5 +44,6 @@ public class ProductsAddServlet extends HttpServlet {
         double price = Double.parseDouble(request.getParameter("price"));
         Product product = new Product(id, name, price);
         productsService.add(product);
+        response.sendRedirect("/products");
     }
 }

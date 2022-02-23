@@ -15,12 +15,9 @@ public class ConnectionFactory implements DataSource {
 
     @Override
     public Connection getConnection() {
+        Properties properties = PropertiesReader.getProperties();
         try {
-            Properties properties = PropertiesReader.getProperties();
-            String dbUrl = properties.getProperty("dbUrl");
-            String dbUser = properties.getProperty("dbUser");
-            String dbPassword = properties.getProperty("dbPassword");
-            return DriverManager.getConnection(dbUrl, dbUser, dbPassword);
+            return getConnection(properties.getProperty("dbUsername"), properties.getProperty("dbPassword"));
         } catch (SQLException e) {
             throw new RuntimeException("Connection to the DB cannot be established with the current credentials", e);
         }
@@ -28,7 +25,13 @@ public class ConnectionFactory implements DataSource {
 
     @Override
     public Connection getConnection(String username, String password) throws SQLException {
-        return null;
+        Properties properties = PropertiesReader.getProperties();
+        try {
+            String dbUrl = properties.getProperty("dbUrl");
+            return DriverManager.getConnection(dbUrl, username, password);
+        } catch (SQLException e) {
+            throw new RuntimeException("Connection to the DB cannot be established with the current credentials", e);
+        }
     }
 
     @Override

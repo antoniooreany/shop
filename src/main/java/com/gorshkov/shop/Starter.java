@@ -32,7 +32,6 @@ public class Starter {
         contextHandler.addServlet(new ServletHolder(productsDeleteServlet), "/products/delete");
         contextHandler.addServlet(new ServletHolder(loginServlet), "/login");
 
-
         Server server = new Server(3000);
         server.setHandler(contextHandler);
 

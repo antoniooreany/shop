@@ -25,9 +25,9 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String email = request.getParameter("login");
+        String login = request.getParameter("login");
         String password = request.getParameter("password");
-        if (email != null && password != null) {
+        if (login != null && password != null) {
             String token = UUID.randomUUID().toString();
             tokens.add(token);
             Cookie cookie = new Cookie("user-token", token);

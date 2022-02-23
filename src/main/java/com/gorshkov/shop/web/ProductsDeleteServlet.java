@@ -29,7 +29,7 @@ public class ProductsDeleteServlet extends HttpServlet {
     }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String, Object> pageVariables = PageVarialbesCreator.createPageVariablesMap(request);
         response.setContentType("text/html;charset=utf-8");
 
@@ -44,5 +44,6 @@ public class ProductsDeleteServlet extends HttpServlet {
 
         int productId = Integer.parseInt(request.getParameter("id"));
         productsService.delete(productId);
+        response.sendRedirect("/products");
     }
 }
